@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Water Intelligent System - Maintenance</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+    rel="stylesheet">
+
+  <!-- Icon Font Stylesheet -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Libraries Stylesheet -->
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+  <!-- Customized Bootstrap Stylesheet -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Template Stylesheet -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- Spinner Start -->
+  <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div> -->
+  <!-- Spinner End -->
+
+  <!-- Navbar & Hero Start -->
+  <div class="container-fluid position-relative p-0">
+    <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+      <a href="" class="navbar-brand p-0">
+        <h1><i class="fas fa-hand-holding-water me-3"></i> Water Intelligent System </h1>
+        <!-- <img src="img/logo.png" alt="Logo"> -->
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="fa fa-bars"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto py-0">
+          <a href="PlumberDashboard.html" class="nav-item nav-link">Dashboard</a>
+          <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+            <div class="dropdown-menu m-0">
+              <a href="infrastructurePlumber.html" class="dropdown-item">Infrastructure</a>
+            </div>
+          </div>
+          <!-- <a href="contact.html" class="nav-item nav-link">Contact</a> -->
+        </div>
+        <!-- <div class="d-none d-xl-flex me-3">
+                    <div class="d-flex flex-column pe-3 border-end border-primary">
+                        <span class="text-body">Get Free Delivery</span>
+                        <a href="tel:+4733378901"><span class="text-primary">Free: + 0123 456 7890</span></a>
+                    </div>
+                </div> -->
+        <!-- <button class="btn btn-primary btn-md-square d-flex flex-shrink-0 mb-3 mb-lg-0 rounded-circle me-3"
+                    data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
+                <a href="" class="btn btn-primary rounded-pill d-inline-flex flex-shrink-0 py-2 px-4">Order Now</a> -->
+      </div>
+    </nav>
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-breadcrumb">
+      <div class="container text-center py-5" style="max-width: 900px;">
+        <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">Plumber Maintenance</h4>
+        <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
+          <li class="breadcrumb-item"><a href="PlumberDashboard.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Pages</a></li>
+          <li class="breadcrumb-item active text-primary">Maintenance</li>
+        </ol>
+      </div>
+    </div>
+    <!-- Header End -->
+  </div>
+  <!-- Navbar & Hero End -->
+
+  <!-- Modal Search Start -->
+  <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content rounded-0">
+        <div class="modal-header">
+          <h4 class="modal-title mb-0" id="exampleModalLabel">Search by keyword</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body d-flex align-items-center">
+          <div class="input-group w-75 mx-auto d-flex">
+            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+            <span id="search-icon-1" class="input-group-text btn border p-3"><i
+                class="fa fa-search text-white"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal Search End -->
+
+  <!-- Service Start -->
+  <div class="container-fluid feature bg-light py-5">
+    <div class="container py-5">
+
+      <div class="tab-container">
+
+        <!-- RADIO BTNS -->
+        <input type="radio" id="pendingTab" name="tabs" checked>
+        <label for="pendingTab" id="radioBtn">Available Tasks</label>
+        <input type="radio" id="progressTab" name="tabs">
+        <label for="progressTab" id="radioBtn">In Progress</label>
+        <input type="radio" id="completeTab" name="tabs">
+        <label for="completeTab" id="radioBtn">Completed</label>
+
+
+        <!-- CONTENT FOR TASKS TAB -->
+
+        <div class="tab-content" id="pending">
+          <div class="row g-4">
+            <div class="col-md col-lg col-xl wow fadeInUp" data-wow-delay="0.2s">
+              <!-- CONTENT FOR THE PENDING COMES HERE -->
+              <div class="cards-container">
+
+                <div class="high-priority">
+                  <div class="card">
+                    <div class="card-header">
+                      <div class="card-title">Pipe Leak - Zone 4</div>
+                      <span class="card-status pending">Pending</span>
+                    </div>
+
+                    <div class="card-body">
+                      <p> <a href="https://www.google.com/maps?q=Pipe+6" target="_blank"
+                          style="margin-left: 5px; color: #007bff;">
+                          <i class="fa fa-map-marker-alt"></i> Location</a>:
+                        Tank 4
+                      </p>
+                      <p> <i class="fa fa-clock"></i> Reported: Apr 21, 2025, 10:00AM </p>
+                      <p> <i class="fa fa-exclamation-circle"></i> Priority: High </p>
+                      <p> <i class="fa fa-book"></i> Note: Bring your tools </p>
+                      <div class="card-footer">
+                        <input type="checkbox" id="modal-toggle" hidden>
+                        <label for="modal-toggle" class="btn btn-orange rounded-pill py-2 mt-2 me-2">Start Task</label>
+
+                        <!-- ASSIGN TASK MODAL -->
+                        <div class="modal">
+                          <div class="modal-content">
+                            <label for="modal-toggle" class="close">&times;</label>
+                            <h4>Available Personnel </h4>
+                            <div class="personnel-list">
+
+                              <div class="person">
+                                <span>Albert Tim</span>
+                                <label for="modal-toggle" class="notify-btn">Notify</label>
+
+                              </div>
+
+                              <div class="person">
+                                <span>Tom Little</span>
+                                <label for="modal-toggle" class="notify-btn">Notify</label>
+                                <!-- <a href="#" class="notify-btn">Assign</a> -->
+                              </div>
+
+                              <div class="person">
+                                <span>Joseph McKnight</span>
+                                <label for="modal-toggle" class="notify-btn">Notify</label>
+                              </div>
+
+                              <div class="person">
+                                <span>Mary Kenn</span>
+                                <label for="modal-toggle" class="notify-btn">Notify</label>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="low-priority">
+                  <div class="card">
+
+                    <div class="card-header">
+                      <div class="card-title">Valve Check - Zone 14</div>
+                      <span class="card-status pending">Pending</span>
+                    </div>
+
+                    <div class="card-body">
+                      <p> <a href="https://www.google.com/maps?q=Pipe+6" target="_blank"
+                          style="margin-left: 5px; color: #007bff;">
+                          <i class="fa fa-map-marker-alt"></i> Location</a>:
+                        Valve 8
+                      </p>
+                      <p> <i class="fa fa-clock"></i> Reported: Apr 23, 2025, 7:00AM </p>
+                      <p> <i class="fa fa-exclamation-circle"></i> Priority: Low </p>
+                      <p> <i class="fa fa-book"></i> Note: Bring your tools </p>
+                      <div class="card-footer">
+                        <input type="checkbox" id="modal-toggle" hidden>
+                        <label for="modal-toggle" class="btn btn-orange rounded-pill py-2 mt-2 me-2">Start Task</label>
+
+                        <!-- ASSIGN TASK MODAL -->
+                        <div class="modal">
+                          <div class="modal-content">
+                            <label for="modal-toggle" class="close">&times;</label>
+                            <h4>Available Personnel </h4>
+                            <div class="personnel-list">
+
+                              <div class="person">
+                                <span>Moses Kine</span>
+                                <label for="modal-toggle" class="notify-btn">Notify</label>
+
+                              </div>
+
+                              <div class="person">
+                                <span>Emma Hosea</span>
+                                <label for="modal-toggle" class="notify-btn">Notify</label>
+                                <!-- <a href="#" class="notify-btn">Assign</a> -->
+                              </div>
+
+                              <div class="person">
+                                <span>Matt Kris</span>
+                                <label for="modal-toggle" class="notify-btn">Notify</label>
+                              </div>
+
+                              <div class="person">
+                                <span>John Bee</span>
+                                <label for="modal-toggle" class="notify-btn">Notify</label>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <!-- PROGRESS END-->
+
+
+        <div class="tab-content" id="progress">
+          <div class="row g-4">
+            <div class="col-md col-lg col-xl wow fadeInUp" data-wow-delay="0.2s">
+              <!-- CONTENT FOR THE Progress COMES HERE -->
+              <div class="cards-container">
+                <div class="high-priority">
+                  <div class="card">
+
+                    <div class="card-header">
+                      <div class="card-title">Pressure Valve Replacement - Zone 1</div>
+                      <span class="card-status progress">In Progress</span>
+                    </div>
+
+                    <div class="card-body">
+                      <p> <a href="https://www.google.com/maps?q=Pipe+6" target="_blank"
+                          style="margin-left: 5px; color: #007bff;">
+                          <i class="fa fa-map-marker-alt"></i> Location</a>:
+                        Pipe 6
+                      </p>
+                      <p> <i class="fa fa-clock"></i> Reported: Apr 25, 2025, 01:00PM </p>
+                      <p> <i class="fa fa-exclamation-circle"></i> Priority: High </p>
+                      <p> <i class="fa fa-book"></i> Note: Bring new pressure valve, size 92r </p>
+                      <p> <i class="fa fa-user"></i> Assigned To: Mary Kenn </p>
+                      <input type="checkbox" id="modal-toggle" hidden>
+                      <label for="modal-toggle" class="btn btn-orange rounded-pill py-2 mt-2 me-2">Update
+                        Progress</label>
+
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="low-priority">
+                  <div class="card">
+
+                    <div class="card-header">
+                      <div class="card-title">Water Filtering - Zone 19</div>
+                      <span class="card-status progress">In Progress</span>
+                    </div>
+
+                    <div class="card-body">
+                      <p> <a href="https://www.google.com/maps?q=Pipe+6" target="_blank"
+                          style="margin-left: 5px; color: #007bff;">
+                          <i class="fa fa-map-marker-alt"></i> Location</a>:
+                        Tank D2
+                      </p>
+                      <p> <i class="fa fa-clock"></i> Reported: Apr 28, 2025, 12:00PM </p>
+                      <p> <i class="fa fa-exclamation-circle"></i> Priority: Low </p>
+                      <p> <i class="fa fa-book"></i> Note: Bring filtering equipment </p>
+                      <p> <i class="fa fa-user"></i> Assigned To: Joseph McKnight </p>
+
+                      <input type="checkbox" id="modal-toggle" hidden>
+                      <label for="modal-toggle" class="btn btn-orange rounded-pill py-2 mt-2 me-2">Update
+                        Progress</label>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COMPLETE -->
+
+        <div class="tab-content" id="complete">
+          <div class="row g-4">
+            <div class="col-md col-lg col-xl wow fadeInUp" data-wow-delay="0.2s">
+              <!-- CONTENT FOR THE Progress COMES HERE -->
+              <div class="cards-container">
+                <div class="high-priority">
+                  <div class="card">
+
+                    <div class="card-header">
+                      <div class="card-title">Pipe Leak - Zone 8</div>
+                      <span class="card-status complete">Complete</span>
+                    </div>
+
+                    <div class="card-body">
+                      <p> <a href="https://www.google.com/maps?q=Pipe+6" target="_blank"
+                          style="margin-left: 5px; color: #007bff;">
+                          <i class="fa fa-map-marker-alt"></i> Location</a>:
+                        Tank 6
+                      </p>
+                      <p> <i class="fa fa-clock"></i> Reported: Apr 20, 2025, 11:00AM </p>
+                      <p> <i class="fa fa-exclamation-circle"></i> Priority: High </p>
+                      <p> <i class="fa fa-book"></i> Note: Bring your tools </p>
+                      <p> <i class="fa fa-user"></i> Completed By: Tom Little </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="low-priority">
+                  <div class="card">
+                    <div class="card-header">
+                      <div class="card-title">Valve Check - Zone 14</div>
+                      <span class="card-status complete">Complete</span>
+                    </div>
+                    <div class="card-body">
+                      <p> <a href="https://www.google.com/maps?q=Pipe+6" target="_blank"
+                          style="margin-left: 5px; color: #007bff;">
+                          <i class="fa fa-map-marker-alt"></i> Location</a>:
+                        Tank D4
+                      </p>
+                      <p> <i class="fa fa-clock"></i> Reported: Apr 21, 2025, 10:00AM </p>
+                      <p> <i class="fa fa-exclamation-circle"></i> Priority: Low </p>
+                      <p> <i class="fa fa-book"></i> Note: Bring your tools </p>
+                      <p> <i class="fa fa-user"></i> Completed By: Tom Little </p>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- Service End -->
+
+      <!-- ******************************FOOTER************************************************** -->
+
+      <!-- Footer Start -->
+      <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+        <div class="container py-5">
+          <div class="row g-5 mb-5 align-items-center">
+            <div class="col-lg-7">
+              <div class="position-relative mx-auto">
+                <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text"
+                  placeholder="Email address to Subscribe" />
+                <button type="button"
+                  class="btn btn-secondary rounded-pill position-absolute top-0 end-0 py-2 px-4 mt-2 me-2">
+                  Subscribe
+                </button>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
+                <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
+                    class="fab fa-facebook-f"></i></a>
+                <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
+                    class="fab fa-twitter"></i></a>
+                <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
+                    class="fab fa-instagram"></i></a>
+                <a class="btn btn-secondary btn-md-square rounded-circle me-0" href=""><i
+                    class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="row g-5">
+            <div class="col-md-6 col-lg-6 col-xl-3">
+              <div class="footer-item d-flex flex-column">
+                <div class="footer-item">
+                  <h3 class="text-black mb-4">
+                    <i class="fas fa-hand-holding-water text-black me-3"></i>WiS
+                  </h3>
+                  <p class="mb-3 text-black">
+                    Dolor amet sit justo amet elitr clita ipsum elitr est.Lorem
+                    ipsum dolor sit amet, consectetur adipiscing elit consectetur
+                    adipiscing elit.
+                  </p>
+                </div>
+                <div class="position-relative">
+                  <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text"
+                    placeholder="Enter your email" />
+                  <button type="button"
+                    class="btn btn-orange rounded-pill position-absolute top-0 end-0 py-2 mt-2 me-2">
+                    SignUp
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3">
+              <div class="footer-item d-flex flex-column">
+                <h4 class="textWhite mb-4">About Us</h4>
+                <a href="#"><i class="fas fa-angle-right me-2"></i> Why Choose Us</a>
+                <a href="#"><i class="fas fa-angle-right me-2"></i> Free Water Bottles</a>
+                <a href="#"><i class="fas fa-angle-right me-2"></i> Water Dispensers</a>
+                <a href="#"><i class="fas fa-angle-right me-2"></i> Bottled Water
+                  Coolers</a>
+                <a href="#"><i class="fas fa-angle-right me-2"></i> Contact us</a>
+                <a href="#"><i class="fas fa-angle-right me-2"></i> Terms & Conditions</a>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3">
+              <div class="footer-item d-flex flex-column">
+                <h4 class="textWhite mb-4">Business Hours</h4>
+                <div class="mb-3">
+                  <h6 class="text-muted mb-0">Mon - Friday:</h6>
+                  <p class="text-white mb-0">8.00 am to 07.00 pm</p>
+                </div>
+                <div class="mb-3">
+                  <h6 class="text-muted mb-0">Saturday:</h6>
+                  <p class="text-white mb-0">8.00 am to 05.00 pm</p>
+                </div>
+                <!-- <div class="mb-3">
+                  <h6 class="text-muted mb-0">Vacation:</h6>
+                  <p class="text-white mb-0">All Sunday is our vacation</p>
+                </div> -->
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3">
+              <div class="footer-item d-flex flex-column">
+                <h4 class="textWhite mb-4">Contact Info</h4>
+                <a href="#"><i class="fa fa-map-marker-alt me-2"></i> Kingsway Auckland Park Campus and Corner
+                  Kingsway,
+                  University Rd, Johannesburg, 2092
+                </a>
+                <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i> operations@uj.ac.za</a>
+                <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i> info@uj.com</a>
+                <a href="tel:+012 345 67890"><i class="fas fa-phone me-2"></i> +011 375 67810</a>
+                <a href="tel:+012 345 67890" class="mb-3"><i class="fas fa-print me-2"></i> +012 345 67890</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer End -->
+
+      <!-- *****************************************COPYRIGHT*************************************** -->
+
+
+      <!-- Copyright Start -->
+      <div class="container-fluid copyright py-4">
+        <div class="container">
+          <div class="row g-4 align-items-center">
+            <div class="col-md-6 text-center text-md-start mb-md-0">
+              <span class="text-body"><a href="#" class="border-bottom text-white"><i
+                    class="fas fa-copyright text-light me-2"></i>Water Intelligent System
+                </a>, All right reserved.</span>
+            </div>
+            <div class="col-md-6 text-center text-md-end text-body">
+              <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+              <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+              <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+              Designed By
+              <a class="border-bottom text-white" href="https://htmlcodex.com">HTML Codex</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Copyright End -->
+
+
+
+      <!-- Back to Top -->
+      <a href="#" class="btn btn-orange btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+      <!-- *****************************JS*************************************************** -->
+
+</body>
+
+</html>

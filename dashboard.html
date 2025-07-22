@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Water Intelligent System - Dashboard</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style2.css">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Style Sheet -->
+    <link href="css/style2.css" rel="stylesheet">
+
+    <!-- jQuery (required before everything else) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+    <!-- Owl Carousel JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.counterup2@1.0.0/jquery.counterup.min.js"></script>
+</head>
+
+<body class="light-mode">
+
+    <div class="dashboard-container">
+        <aside class="sidebar d-flex flex-column justify-content-between">
+            <div>
+                <div class="sidebar-header">
+                    <h2><i class="fas fa-tint"></i> WiS </h2>
+                </div>
+                <br>
+                <br>
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li class="active"><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                        <li><a href="infrastructure.html"><i class="fas fa-industry"></i> Infrastructure</a></li>
+                        <li><a href="usermanagement.html"><i class="fas fa-user"></i> Manage Users</a></li>
+                        <li><a href="reports.html"><i class="fas fa-exclamation-triangle"></i> Reports</a></li>
+                        <li><a href="maintenance.html"><i class="fas fa-tools"></i> Maintenance</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer mt-auto">
+                <div class="user-profile d-flex align-items-center">
+                    <div>
+                        <!-- <div class="fw-bold">Mr Manager</div>
+                        <small>manager@manager.com</small> -->
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <a href="login.html" class="btn btn-sm btn-outline-light w-100"><i class="fas fa-sign-out-alt"></i>
+                        Logout</a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-nav">
+                <div class="search-bar d-flex align-items-center">
+                    <label for="search-input" class="visually-hidden">Search</label>
+                    <i class="fas fa-search me-2" aria-hidden="true"></i>
+                    <input type="text" id="search-input" class="form-control" placeholder="Search..."
+                        style="max-width: 300px;">
+                </div>
+                <div class="nav-right d-flex align-items-center">
+                    <!-- <button id="modeToggle" class="btn btn-outline-primary me-3">Light/Dark</button> -->
+                    <a href="notifications.html" style="color:black;"  aria-label="Notifications">
+                        <i class="fas fa-bell me-3"></i>
+                    </a>
+                    <a href="viewprofile.html" style="color:black;" aria-label="User profile">
+                        <i class="fas fa-user-circle fa-2x"></i>
+                    </a>
+                </div>
+            </header>
+
+            <div class="container-fluid mt-4">
+                <div class="page-header">
+                    <h2>Dashboard Overview</h2>
+                    <p>Welcome to the Water Intelligent System Dashboard</p>
+                </div>
+
+                <div class="row g-4 mt-3">
+                    <div class="col-md-3">
+                        <div class="card shadow-sm stat-card">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="stat-icon water-level me-3">
+                                    <i class="fas fa-water fa-2x" aria-hidden="true"></i>
+                                </div>
+                                <div>
+                                    <h5>Water Level</h5>
+                                    <h3>78%</h3>
+                                    <small>Main Tank</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card shadow-sm stat-card">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="stat-icon water-ph me-3">
+                                    <i class="fas fa-flask fa-2x" aria-hidden="true"></i>
+                                </div>
+                                <div>
+                                    <h5>Water PH</h5>
+                                    <h3>7.2</h3>
+                                    <small>Tank A</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card shadow-sm stat-card">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="stat-icon sensor-type me-3">
+                                    <i class="fas fa-microchip fa-2x" aria-hidden="true"></i>
+                                </div>
+                                <div>
+                                    <h5>Sensors Active</h5>
+                                    <h3>24/26</h3>
+                                    <small>Ultrasonic Sensors</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card shadow-sm stat-card">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="stat-icon pipeline me-3">
+                                    <i class="fas fa-pipe fa-2x" aria-hidden="true"></i>
+                                </div>
+                                <div>
+                                    <h3>12</h3>
+                                    <h5>New Pipes</h5>
+                                    <small>150 in total</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-md-8">
+                        <div class="card shadow-sm">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5>Users</h5>
+                                <label for="user-chart-filter" class="visually-hidden">Filter Users</label>
+                                <select id="user-chart-filter" class="form-select w-auto">
+                                    <option>Active</option>
+                                    <option>Inactive</option>
+                                    <option>On Standby</option>
+                                </select>
+                            </div>
+                            <div class="image">
+                                <img src=".\img\WiS\UserRoleChart.png" alt="Chart showing user roles distribution">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-header">
+                                <h5>Water Quality Metrics: Tank B</h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        PH Level <span>7.2</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        Turbidity <span>2.1 NTU</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        Chlorine <span>0.8 mg/L</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        Temperature <span>18°C</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <div class="card shadow-sm">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5>Recent Alerts</h5>
+                                <button class="btn btn-primary btn-sm">View All</button>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Alert Type</th>
+                                            <th>Location</th>
+                                            <th>Time</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><i class="fas fa-exclamation-triangle text-warning"
+                                                    aria-hidden="true"></i> Low Water Level</td>
+                                            <td>Tank B-12</td>
+                                            <td>10:45 AM</td>
+                                            <td><span class="badge bg-warning">Pending</span></td>
+                                            <td><button class="btn btn-outline-primary btn-sm">Request Backup</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><i class="fas fa-tint text-primary" aria-hidden="true"></i> Pipe Leak
+                                            </td>
+                                            <td>Zone 4</td>
+                                            <td>Yesterday</td>
+                                            <td><span class="badge bg-danger">Urgent</span></td>
+                                            <td><button class="btn btn-outline-primary btn-sm">Report to
+                                                    Supervisor</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><i class="fas fa-flask text-danger" aria-hidden="true"></i> PH Alert
+                                            </td>
+                                            <td>Treatment Plant</td>
+                                            <td>2 days ago</td>
+                                            <td><span class="badge bg-success">Resolved</span></td>
+                                            <td><button class="btn btn-outline-secondary btn-sm">Details</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const toggleBtn = document.getElementById('modeToggle');
+        const body = document.body;
+        toggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+        });
+    </script>
+
+</body>
+
+</html>
