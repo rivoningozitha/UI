@@ -56,20 +56,21 @@ function addEmployee() {
     async function sendEmployee() {
         setLoadingState(true);
 
-        const userId = createId(); // generate ID
         const role = roleSelect.value;
 
         const employeeData = {
             FirstName: firstName.value.trim(),
             LastName: lastName.value.trim(),
             Email: email.value.trim(),
+            Username: email.value.trim(),
             ContactNumber: contactNumber.value.trim(),
             Password: password,
             Verified: verified,
             Role: role,
             Token: token,
             Qualification: qualification.value.trim(),
-            ExperienceYears: parseInt(experience.value.trim(), 10) || 0
+            ExperienceYears: parseInt(experience.value.trim(), 10) || 0,
+            Specialization: ""
         };
 
         // Add specializations if plumber
@@ -80,7 +81,7 @@ function addEmployee() {
                 .map(checkbox => checkbox.value);
 
             // Always include the key, even if nothing is selected
-            employeeData.Specializations = selectedSpecs.length > 0
+            employeeData.Specialization = selectedSpecs.length > 0
                 ? selectedSpecs.join(", ")
                 : "";
 
@@ -90,7 +91,7 @@ function addEmployee() {
 
         console.log("Final employeeData payload:", JSON.stringify(employeeData, null, 2));
         try {
-            const response = await fetch("https://localhost:7238/api/User/addnewemployee", {
+            const response = await fetch("http://localhost:5125/api/User/addnewemployee", {
                 method: "POST",
                 body: JSON.stringify(employeeData),
                 headers: {

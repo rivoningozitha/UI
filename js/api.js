@@ -1,224 +1,220 @@
-function createId() {
-  return Math.floor(Math.random() * 2000000000);
-}
+// //REGISTER
+// function register() {
+//   const registerBtn = document.querySelector("#regID");
 
-//REGISTER
-function register() {
-  const registerBtn = document.querySelector("#regID");
+//   const firstName = document.querySelector("#firstName");
+//   const lastName = document.querySelector("#lastName");
+//   const username = document.querySelector("#username");
+//   const email = document.querySelector("#email");
+//   const contactNumber = document.querySelector("#phone");
+//   const password = document.querySelector("#password");
 
-  const firstName = document.querySelector("#firstName");
-  const lastName = document.querySelector("#lastName");
-  const username = document.querySelector("#username");
-  const email = document.querySelector("#email");
-  const contactNumber = document.querySelector("#phone");
-  const password = document.querySelector("#password");
-
-  const role = "Manager";
-  const verified = false;
-  const token = "";
+//   const role = "Manager";
+//   const verified = false;
+//   const token = "";
 
 
 
-  function addUser() {
-    const userData = {
-      Id: createId(),
-      Username: username.value,
-      Name: firstName.value,
-      Surname: lastName.value,
-      Email: email.value,
-      ContactNumber: contactNumber.value,
-      Role: role,
-      PasswordHash: password.value,
-      Verified: verified,
-      Token: token,
-    };
+//   function addUser() {
+//     const userData = {
+//       Id: createId(),
+//       Username: username.value,
+//       Name: firstName.value,
+//       Surname: lastName.value,
+//       Email: email.value,
+//       ContactNumber: contactNumber.value,
+//       Role: role,
+//       PasswordHash: password.value,
+//       Verified: verified,
+//       Token: token,
+//     };
 
-    console.log("User data being sent:", userData);
+//     console.log("User data being sent:", userData);
 
-    fetch("https://localhost:7238/api/User/register", {
-      method: "POST",
-      body: JSON.stringify(userData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then(async (response) => {
-        if (!response.ok) {
-          const errTxt = await response.text();
-          throw new Error(
-            `Registration failed: ${response.status} - ${errTxt}`
-          );
-        }
+//     fetch("https://localhost:7238/api/User/register", {
+//       method: "POST",
+//       body: JSON.stringify(userData),
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     })
+//       .then(async (response) => {
+//         if (!response.ok) {
+//           const errTxt = await response.text();
+//           throw new Error(
+//             `Registration failed: ${response.status} - ${errTxt}`
+//           );
+//         }
 
-        let data;
-        try {
-          data = await response.json();
-        } catch (e) {
-          data = null;
-        }
+//         let data;
+//         try {
+//           data = await response.json();
+//         } catch (e) {
+//           data = null;
+//         }
 
-        console.log("User registered:", data);
-        // alert("Registration successful!");
+//         console.log("User registered:", data);
+//         // alert("Registration successful!");
 
-        window.location.href = "/login.html";
-      })
-      .catch((error) => {
-        console.error("Error registering user:", error);
-        alert("Registration failed.");
-      });
-  }
+//         window.location.href = "/login.html";
+//       })
+//       .catch((error) => {
+//         console.error("Error registering user:", error);
+//         alert("Registration failed.");
+//       });
+//   }
 
-  registerBtn.addEventListener("click", function (e) {
-    e.preventDefault();
-    addUser();
-  });
-}
+//   registerBtn.addEventListener("click", function (e) {
+//     e.preventDefault();
+//     addUser();
+//   });
+// }
 
-function addEmployee() {
-  const employeeForm = document.querySelector("#employeeForm");
-  const addEmployeeBtn = document.querySelector("#addEmployeeBtn");
+// function addEmployee() {
+//   const employeeForm = document.querySelector("#employeeForm");
+//   const addEmployeeBtn = document.querySelector("#addEmployeeBtn");
 
-  const firstName = document.querySelector("#firstName");
-  const lastName = document.querySelector("#lastName");
-  const email = document.querySelector("#email");
-  const contactNumber = document.querySelector("#phone");
-  const roleSelect = document.querySelector("#role");
-  const qualification = document.querySelector("#qualification");
-  const experience = document.querySelector("#experience");
+//   const firstName = document.querySelector("#firstName");
+//   const lastName = document.querySelector("#lastName");
+//   const email = document.querySelector("#email");
+//   const contactNumber = document.querySelector("#phone");
+//   const roleSelect = document.querySelector("#role");
+//   const qualification = document.querySelector("#qualification");
+//   const experience = document.querySelector("#experience");
 
-  const password = "default123"; // default placeholder
-  const token = "";
-  const verified = false;
+//   const password = "default123"; // default placeholder
+//   const token = "";
+//   const verified = false;
 
-  // Disable button and show loading state
-  function setLoadingState(isLoading) {
-    addEmployeeBtn.disabled = isLoading;
+//   // Disable button and show loading state
+//   function setLoadingState(isLoading) {
+//     addEmployeeBtn.disabled = isLoading;
 
-    if (typeof bootstrap !== 'undefined') {
-      addEmployeeBtn.innerHTML = isLoading
-        ? '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Adding...'
-        : '<i class="fas fa-user-plus me-2"></i> Add Employee';
-    } else {
-      addEmployeeBtn.textContent = isLoading ? 'Adding Employee...' : 'Add Employee';
-    }
-  }
+//     if (typeof bootstrap !== 'undefined') {
+//       addEmployeeBtn.innerHTML = isLoading
+//         ? '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Adding...'
+//         : '<i class="fas fa-user-plus me-2"></i> Add Employee';
+//     } else {
+//       addEmployeeBtn.textContent = isLoading ? 'Adding Employee...' : 'Add Employee';
+//     }
+//   }
 
-  async function sendEmployee() {
-    setLoadingState(true);
+//   async function sendEmployee() {
+//     setLoadingState(true);
 
-    const userId = createId(); // generate ID
-    const role = roleSelect.value;
+//     const userId = createId(); // generate ID
+//     const role = roleSelect.value;
 
-    const employeeData = {
-      UserId: userId,
-      FirstName: firstName.value.trim(),
-      LastName: lastName.value.trim(),
-      Email: email.value.trim(),
-      ContactNumber: contactNumber.value.trim(),
-      Password: password,
-      Verified: verified,
-      Role: role,
-      Token: token,
-      Qualification: qualification.value.trim(),
-      ExperienceYears: parseInt(experience.value.trim(), 10) || 0
-    };
+//     const employeeData = {
+//       FirstName: firstName.value.trim(),
+//       LastName: lastName.value.trim(),
+//       Email: email.value.trim(),
+//       ContactNumber: contactNumber.value.trim(),
+//       Password: password,
+//       Verified: verified,
+//       Role: role,
+//       Token: token,
+//       Qualification: qualification.value.trim(),
+//       ExperienceYears: parseInt(experience.value.trim(), 10) || 0
+//     };
 
-    // Add specializations if plumber
-    if (role === 'Plumber') {
-      const checkboxGroup = document.querySelectorAll('#specializationGroup input[type="checkbox"]:checked');
+//     // Add specializations if plumber
+//     if (role === 'Plumber') {
+//       const checkboxGroup = document.querySelectorAll('#specializationGroup input[type="checkbox"]:checked');
 
-      const selectedSpecs = Array.from(checkboxGroup)
-        .map(checkbox => checkbox.value);
+//       const selectedSpecs = Array.from(checkboxGroup)
+//         .map(checkbox => checkbox.value);
 
-      // Always include the key, even if nothing is selected
-      employeeData.Specializations = selectedSpecs.length > 0
-        ? selectedSpecs.join(", ")
-        : "";
+//       // Always include the key, even if nothing is selected
+//       employeeData.Specializations = selectedSpecs.length > 0
+//         ? selectedSpecs.join(", ")
+//         : "";
 
-      console.log(selectedSpecs);
-    }
+//       console.log(selectedSpecs);
+//     }
 
 
-    // if (role === "Plumber") {
-    //   employeeData.SpecialistRoles = ["Special Role"]; // example placeholder
-    // }
+//     // if (role === "Plumber") {
+//     //   employeeData.SpecialistRoles = ["Special Role"]; // example placeholder
+//     // }
 
-    console.log("Final employeeData payload:", JSON.stringify(employeeData, null, 2));
-    try {
-      const response = await fetch("https://localhost:7238/api/User/addnewemployee", {
-        method: "POST",
-        body: JSON.stringify(employeeData),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
+//     console.log("Final employeeData payload:", JSON.stringify(employeeData, null, 2));
+//     try {
+//       const response = await fetch("https://localhost:7238/api/User/addnewemployee", {
+//         method: "POST",
+//         body: JSON.stringify(employeeData),
+//         headers: {
+//           "Content-Type": "application/json"
+//         }
+//       });
 
-      if (!response.ok) {
-        const errTxt = await response.text();
-        throw new Error(`Employee creation failed: ${response.status} - ${errTxt}`);
-      }
+//       if (!response.ok) {
+//         const errTxt = await response.text();
+//         throw new Error(`Employee creation failed: ${response.status} - ${errTxt}`);
+//       }
 
-      const data = await response.json();
-      console.log("Employee added:", data);
-      alert("Employee added successfully!");
-      employeeForm.reset();
-    } catch (error) {
-      console.error("Error adding employee:", error);
-      alert("Employee creation failed: " + error.message);
-    } finally {
-      setLoadingState(false);
-    }
-  }
+//       const data = await response.json();
+//       console.log("Employee added:", data);
+//       alert("Employee added successfully!");
+//       employeeForm.reset();
+//     } catch (error) {
+//       console.error("Error adding employee:", error);
+//       alert("Employee creation failed: " + error.message);
+//     } finally {
+//       setLoadingState(false);
+//     }
+//   }
 
-  employeeForm.addEventListener("submit", async function (e) {
-    e.preventDefault();
-    await sendEmployee();
-  });
-}
+//   employeeForm.addEventListener("submit", async function (e) {
+//     e.preventDefault();
+//     await sendEmployee();
+//   });
+// }
 
-document.addEventListener("DOMContentLoaded", addEmployee);
+// document.addEventListener("DOMContentLoaded", addEmployee);
 
-async function populateUserTable() {
-  try {
-    const response = await fetch("https://localhost:7238/Get-All-System-Users"); // Update if needed
-    if (!response.ok) {
-      const errText = await response.text();
-      throw new Error(`Failed: ${response.status} - ${errText}`);
-    }
+// async function populateUserTable() {
+//   try {
+//     const response = await fetch("https://localhost:7238/Get-All-System-Users"); // Update if needed
+//     if (!response.ok) {
+//       const errText = await response.text();
+//       throw new Error(`Failed: ${response.status} - ${errText}`);
+//     }
 
-    const users = await response.json();
-    const tbody = document.querySelector("#table_body");
-    tbody.innerHTML = ""; // Clear previous rows
+//     const users = await response.json();
+//     const tbody = document.querySelector("#table_body");
+//     tbody.innerHTML = ""; // Clear previous rows
 
-    users.forEach(user => {
-      const tr = document.createElement("tr");
+//     users.forEach(user => {
+//       const tr = document.createElement("tr");
 
-      tr.innerHTML = `
-        <td>${user.name} ${user.surname}</td>
-        <td>${user.email}</td>
-        <td>${user.role}</td>
-        <td>${user.contactNumber}</td>
-        <td>
-          <button class="btn btn-sm btn-primary me-1" onclick="editUser('${user.id}')">
-            <i class="fas fa-edit"></i>
-          </button>
-          <!-- <button class="btn btn-sm btn-danger" onclick="deleteUser('${user.id}')">
-            <i class="fas fa-trash-alt"></i>
-          </button> -->
-        </td>
-      `;
+//       tr.innerHTML = `
+//         <td>${user.name} ${user.surname}</td>
+//         <td>${user.email}</td>
+//         <td>${user.role}</td>
+//         <td>${user.contactNumber}</td>
+//         <td>
+//           <button class="btn btn-sm btn-primary me-1" onclick="editUser('${user.id}')">
+//             <i class="fas fa-edit"></i>
+//           </button>
+//           <!-- <button class="btn btn-sm btn-danger" onclick="deleteUser('${user.id}')">
+//             <i class="fas fa-trash-alt"></i>
+//           </button> -->
+//         </td>
+//       `;
 
-      tbody.appendChild(tr);
-    });
-  } catch (error) {
-    console.error("Error populating user table:", error);
-  }
-}
+//       tbody.appendChild(tr);
+//     });
+//   } catch (error) {
+//     console.error("Error populating user table:", error);
+//   }
+// }
 
-// Fetch and render when page loads
-document.addEventListener("DOMContentLoaded", populateUserTable);
+// // Fetch and render when page loads
+// document.addEventListener("DOMContentLoaded", populateUserTable);
 
 // LOGIN
+
 function loginUser() {
   const loginBtn = document.querySelector("#loginBtn");
   const emailInput = document.querySelector("#loginUsername");
@@ -230,10 +226,10 @@ function loginUser() {
     //   const  email = emailInput.value;
     //    const passwordHash = passwordInput.value;
 
-    console.log("Email:", emailInput.value);
-    console.log("Password:", passwordInput.value);
+    //console.log("Email:", emailInput.value);
+    //console.log("Password:", passwordInput.value);
 
-    const url = `https://localhost:7238/api/User/login`;
+    const url = `http://localhost:5125/api/User/login`;
 
     fetch(url, {
       method: "POST",

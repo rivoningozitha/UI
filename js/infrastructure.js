@@ -41,10 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="card-content">
                                     <p><i class="fa fa-clipboard-check"></i> <strong>Status:</strong> <span class="tank-status ${data.statusClass}">${data.operationalStatus}</span></p>
                                     <p><i class="fa fa-tachometer-alt"></i> <strong>Capacity:</strong> ${data.capacity}</p>
-                                    <p><i class="fa fa-water"></i> <strong>Water Level:</strong> ${waterLevel}</p>
-
+                                    <p><i class="fa fa-water"></i> <strong>Water Level:</strong> ${waterLevel}%</p>
                                 </div>
-                                <button class="btn ${data.statusClass ? 'btn-orange' : 'btn-gray'} rounded-pill py-2 mt-2 me-2">Update Status</button>
                             </div>
                         </div>
                         <div class="col-6">
@@ -52,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <img src="${data.image}" alt="">
                                 <div class="water" id="waterLevel"></div>
                                 <span class="level-text" id="levelText">${waterLevel}%</span>
-                                <div id="hoverInfo" class="hover-info">Est. time to empty: ${data.timeToEmpty}</div>
                             </div>
                         </div>
                     </div>
@@ -82,9 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <p><i class="fa fa-barcode"></i> <strong>ID:</strong> ${data.id}</p>
                                     <p><i class="fa fa-clipboard-check"></i> <strong>Status:</strong> <span class="tank-status ${data.statusClass}">${data.status}</span></p>
                                     <p><i class="fa fa-tachometer-alt"></i> <strong>Type:</strong> ${data.type}</p>
-                                    <p><i class="fa fa-battery-quarter"></i> <strong>Battery Level:</strong> ${data.batteryLevel}</p>
                                 </div>
-                                <button class="btn ${data.statusClass ? 'btn-orange' : 'btn-gray'} rounded-pill py-2 mt-2 me-2">Update Status</button>
                             </div>
                         </div>
                         <div class="col-6">
@@ -123,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <p><i class="fa fa-tint"></i> <strong>Flow Rate:</strong> ${data.flowRate}</p>
                                     <p><i class="fa fa-tachometer-alt"></i> <strong>Pressure Level:</strong> ${data.pressureLevel}</p>
                                 </div>
-                                <button class="btn ${data.statusClass ? 'btn-orange' : 'btn-gray'} rounded-pill py-2 mt-2 me-2">Update Status</button>
                             </div>
                         </div>
                         <div class="col-6">
