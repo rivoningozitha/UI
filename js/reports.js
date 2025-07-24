@@ -1,72 +1,106 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Select the containers for each tab
     const allReportsContainer = document.querySelector('#allReports .cards-container');
     const userReportsContainer = document.querySelector('#userReports .cards-container');
     const systemReportsContainer = document.querySelector('#systemReports .cards-container');
 
-    // Sample data for reports
-    // This data will be dynamically populated into the cards.
-    let reports = [
-        {
-            id: 'rep001',
-            title: 'Monthly Water Quality Report - Zone 1',
-            type: 'system', // 'user' or 'system'
-            description: 'Automated report on water quality parameters for Zone 1. pH levels are slightly elevated.',
-            reported: 'Jul 1, 2025, 08:00AM',
-            priority: 'Medium', // Example: Medium priority
-            status: 'Generated'
-        },
-        {
-            id: 'rep002',
-            title: 'User Feedback Summary - Q2 2025',
-            type: 'user',
-            description: 'Summary of user complaints and suggestions received in Q2 2025. Focus on billing issues.',
-            reported: 'Jul 5, 2025, 09:30AM',
-            priority: 'Low',
-            status: 'Generated'
-        },
-        {
-            id: 'rep003',
-            title: 'Infrastructure Health Check - Pipe Network',
-            type: 'system',
-            description: 'Automated report on the structural integrity of the main pipe network. Minor corrosion detected in Section B.',
-            reported: 'Jul 10, 2025, 11:00AM',
-            priority: 'High',
-            status: 'Generated'
-        },
-        {
-            id: 'rep004',
-            title: 'Customer Service Inquiry Volume',
-            type: 'user',
-            description: 'Analysis of inbound customer service inquiries for June 2025. High volume in billing category.',
-            reported: 'Jul 12, 2025, 03:00PM',
-            priority: 'Medium',
-            status: 'Processed'
-        },
-        {
-            id: 'rep005',
-            title: 'Sensor Calibration Report - Station 5',
-            type: 'system',
-            description: 'Automated report on sensor calibration status at Pumping Station 5. All sensors within tolerance.',
-            reported: 'Jul 14, 2025, 06:00AM',
-            priority: 'Low',
-            status: 'Completed'
-        }
-    ];
+    let reports = [];
 
-    /**
-     * Generates the HTML for a single report card.
-     * @param {Object} report - The report object containing details like title, type, description, etc.
-     * @returns {HTMLElement} The created div element representing the report card.
-     */
+    // Search for the report that matches the report id
+    function getReportTitleById(reportIdToMatch) {
+        const foundReport = reports.find(report => report.id === reportIdToMatch);
+
+        if (foundReport) {
+            return foundReport.title;
+        } else {
+            return null;
+        }
+    }
+
+    // Define mappings for enums based on the provided API specification
+    const reportTypeMap = {
+        0: 'system',
+        1: 'user'
+    };
+
+    const statusMap = {
+        0: 'Open',
+        1: 'InProgress',
+        2: 'Closed',
+        3: 'Assigned'
+    };
+
+    const priorityLevelMap = {
+        0: 'Informational',
+        1: 'Low',
+        2: 'Medium',
+        3: 'High',
+        4: 'Critical'
+    };
+
+    async function fetchReportsFromApi() {
+        try {
+            const response = await fetch('http://localhost:5125/api/Reports/Get-All-Reports');
+            if (!response.ok) {
+                const errorBody = await response.text();
+                throw new Error(`HTTP error! Status: ${response.status}. Message: ${errorBody || 'No specific error message.'}`);
+            }
+            const rawData = await response.json();
+
+            const transformedReports = rawData.map(item => ({
+                id: item.id,
+                title: item.summary,
+                type: reportTypeMap[item.reportType],
+                description: item.description,
+                reported: new Date(item.timeLogged).toLocaleString(), // Use toLocaleString for display
+                rawTimeLogged: item.timeLogged, // Keep the raw timeLogged for dueDate calculation
+                picture: item.picture,
+                status: statusMap[item.status],
+                priority: priorityLevelMap[item.priorityLevel]
+            }));
+
+            return transformedReports;
+
+        } catch (error) {
+            console.error("Error fetching reports from API:", error);
+            return [];
+        }
+    }
+
+    async function createTaskFromReport(reportId, title, dueDate, authorityId) {
+        try {
+            const response = await fetch(`http://localhost:5125/api/Reports/${reportId}/Report-To-Task`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    Title: title,
+                    DueDate: dueDate,
+                    AuthorityId: authorityId
+                })
+            });
+
+            if (!response.ok) {
+                const errorBody = await response.text();
+                throw new Error(`Failed to create task! Status: ${response.status}. Message: ${errorBody || 'No specific error message.'}`);
+            }
+
+            const newTask = await response.json();
+            alert(`Task created successfully for Report ID ${reportId}: ${newTask.title}`);
+        } catch (error) {
+            console.error("Error creating task:", error);
+            alert(`Error creating task: ${error.message}`);
+        }
+    }
+
+    //generate a report card
     function generateReportCard(report) {
         const cardDiv = document.createElement('div');
-        // Add class based on priority for general styling (assuming style2.css handles these)
-        if (report.priority === 'High') {
+        if (report.priority === 'High' || report.priority === 'Critical') {
             cardDiv.classList.add('high-priority');
         } else if (report.priority === 'Medium') {
             cardDiv.classList.add('medium-priority');
-            
+
         } else {
             cardDiv.classList.add('low-priority');
         }
@@ -82,16 +116,38 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p> <i class="fa fa-file-alt"></i> Description: ${report.description}</p>
                     <p> <i class="fa fa-clock"></i> Reported: ${report.reported}</p>
                     <p> <i class="fa fa-exclamation-circle"></i> Priority: ${report.priority} </p>
+                    <div class="card-footer">
+                            <button class="btn btn-orange rounded-pill py-2 mt-2 me-2 generate-task-btn" data-report-id="${report.id}" data-report-time-logged="${report.rawTimeLogged}">Generate Task</button>
+                    </div>
                 </div>
             </div>
         `;
+
+        // Add event listener to the "Generate Task" button
+        const generateTaskButton = cardDiv.querySelector('.generate-task-btn');
+        generateTaskButton.addEventListener('click', () => {
+            const reportId = parseInt(generateTaskButton.dataset.reportId);
+            const reportTimeLogged = generateTaskButton.dataset.reportTimeLogged;
+
+            const title = getReportTitleById(reportId);
+            if (!title) return;
+
+            // Auto-calculate dueDate 3 days from reportTimeLogged
+            const reportDate = new Date(reportTimeLogged);
+            const dueDate = new Date(reportDate.getTime() + 3 * 24 * 60 * 60 * 1000).toISOString(); // Format as ISO string
+
+            const authorityId = 4;
+            if (!authorityId || isNaN(parseInt(authorityId))) {
+                alert("Invalid Authority ID. Please enter a number.");
+                return;
+            }
+
+            createTaskFromReport(reportId, title, dueDate, parseInt(authorityId));
+        });
+
         return cardDiv;
     }
 
-    /**
-     * Renders reports into the appropriate containers based on the filter type.
-     * @param {string} filterType - The type of reports to display ('all', 'user', 'system').
-     */
     function renderReports(filterType = 'all') {
         // Clear existing content in all containers
         allReportsContainer.innerHTML = '';
@@ -107,19 +163,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Append filtered reports to the correct container
+        const containerToRender = (filterType === 'all') ? allReportsContainer :
+            (filterType === 'user') ? userReportsContainer :
+                systemReportsContainer;
+
+        if (filteredReports.length === 0) {
+            containerToRender.innerHTML = '<p class="no-reports-message">No reports to display for this category.</p>';
+            return;
+        }
+
         filteredReports.forEach(report => {
             const reportCard = generateReportCard(report);
-            if (filterType === 'all') {
-                allReportsContainer.appendChild(reportCard);
-            } else if (filterType === 'user' && report.type === 'user') {
-                userReportsContainer.appendChild(reportCard);
-            } else if (filterType === 'system' && report.type === 'system') {
-                systemReportsContainer.appendChild(reportCard);
-            }
+            containerToRender.appendChild(reportCard);
         });
 
-        // Ensure the correct tab content div is displayed and others are hidden
         document.querySelectorAll('.tab-content').forEach(content => {
             content.style.display = 'none';
         });
@@ -141,6 +198,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Initial rendering of reports when the page loads (defaults to 'All Reports')
-    renderReports('all');
+    // Initial data load and rendering when the page loads
+    async function initializeReports() {
+        // Display a loading message while fetching
+        allReportsContainer.innerHTML = '<p class="loading-message">Loading reports...</p>';
+        userReportsContainer.innerHTML = '<p class="loading-message">Loading reports...</p>';
+        systemReportsContainer.innerHTML = '<p class="loading-message">Loading reports...</p>';
+
+        reports = await fetchReportsFromApi();
+
+        renderReports('all');
+    }
+
+    initializeReports();
 });
