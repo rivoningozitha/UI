@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (userRole == null) {
     window.location.href = 'login.html';
     return; // Stop further script execution
-  } else if (userRole !== 'Manager') {
+  } else if (userRole !== 'manager') {
     window.location.href = 'dashboard.html';
   }
 
