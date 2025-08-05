@@ -1,15 +1,25 @@
-function createId() {
-  return Math.floor(Math.random() * 2000000000);
-}
+import { getUserRole } from './common.js';
 
 // Dynamic User Table Population
 document.addEventListener('DOMContentLoaded', () => {
+
+  const userRole = getUserRole();
+
+  // Check if the user is a Manager, if not, deny access and replace the card's content
+  if (userRole == null) {
+    window.location.href = 'login.html';
+    return; // Stop further script execution
+  } else if (userRole !== 'Manager') {
+    window.location.href = 'dashboard.html';
+  }
+
+
   const userTableBody = document.getElementById('userTableBody');
   if (!userTableBody) return;
 
   async function fetchAndPopulateUsers() {
     try {
-      const response = await fetch('http://localhost:5125/api/User/Get-All-System-Users', {
+      const response = await fetch('https://wisapi-latest.onrender.com/api/User/Get-All-System-Users', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -80,75 +90,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
   fetchAndPopulateUsers();
 });
-
-//REGISTER
-function register() {
-  const registerBtn = document.querySelector("#regID");
-
-  const firstName = document.querySelector("#firstName");
-  const lastName = document.querySelector("#lastName");
-  const username = document.querySelector("#username");
-  const email = document.querySelector("#email");
-  const contactNumber = document.querySelector("#phone");
-  const password = document.querySelector("#password");
-
-  const role = "Manager";
-  const verified = false;
-  const token = "";
-
-
-
-  function addUser() {
-    const userData = {
-      Id: createId(),
-      Username: username.value,
-      Name: firstName.value,
-      Surname: lastName.value,
-      Email: email.value,
-      ContactNumber: contactNumber.value,
-      Role: role,
-      PasswordHash: password.value,
-      Verified: verified,
-      Token: token,
-    };
-
-    console.log("User data being sent:", userData);
-
-    fetch("https://localhost:7238/api/User/register", {
-      method: "POST",
-      body: JSON.stringify(userData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then(async (response) => {
-        if (!response.ok) {
-          const errTxt = await response.text();
-          throw new Error(
-            `Registration failed: ${response.status} - ${errTxt}`
-          );
-        }
-
-        let data;
-        try {
-          data = await response.json();
-        } catch (e) {
-          data = null;
-        }
-
-        console.log("User registered:", data);
-        // alert("Registration successful!");
-
-        window.location.href = "/login.html";
-      })
-      .catch((error) => {
-        console.error("Error registering user:", error);
-        alert("Registration failed.");
-      });
-  }
-
-  registerBtn.addEventListener("click", function (e) {
-    e.preventDefault();
-    addUser();
-  });
-}

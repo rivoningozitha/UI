@@ -1,19 +1,33 @@
 // infrastructure.js
 
+//import functionality from the common module
+import { fetchData, getUserRole } from './common.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     // Function to fetch data from an API endpoint
-    async function fetchData(url) {
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return await response.json();
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            return []; // Return an empty array on error
-        }
+    // async function fetchData(url) {
+    //     try {
+    //         const response = await fetch(url);
+    //         if (!response.ok) {
+    //             throw new Error(`HTTP error! status: ${response.status}`);
+    //         }
+    //         return await response.json();
+    //     } catch (error) {
+    //         console.error('Error fetching data:', error);
+    //         return []; // Return an empty array on error
+    //     }
+    // }
+
+    const userRole = getUserRole();
+
+    // Check if the user is a manager or supervisor, if not, deny access
+    if (userRole == null) {
+        window.location.href = 'login.html';
     }
+    // } else if (userRole !== 'manager' || userRole !== 'supervisor' || userRole === 'plumber') {
+    //     window.location.href = 'dashboard.html';
+    // }
+
 
     const tankSection = document.getElementById('tankSection').querySelector('.row.flex-nowrap');
     const sensorSection = document.getElementById('sensorSection').querySelector('.row.flex-nowrap');
@@ -26,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         colDiv.tabIndex = 0; // Make it focusable
 
 
-        const waterLevel = (data.waterLevel/data.capacity)*100
+        const waterLevel = Math.round((data.waterLevel/data.capacity)*100)
 
         colDiv.innerHTML = `
             <div class="cards-container">
@@ -41,10 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="card-content">
                                     <p><i class="fa fa-clipboard-check"></i> <strong>Status:</strong> <span class="tank-status ${data.statusClass}">${data.operationalStatus}</span></p>
                                     <p><i class="fa fa-tachometer-alt"></i> <strong>Capacity:</strong> ${data.capacity}</p>
-                                    <p><i class="fa fa-water"></i> <strong>Water Level:</strong> ${waterLevel}</p>
-
+                                    <p><i class="fa fa-water"></i> <strong>Water Level:</strong> ${waterLevel}%</p>
                                 </div>
-                                <button class="btn ${data.statusClass ? 'btn-orange' : 'btn-gray'} rounded-pill py-2 mt-2 me-2">Update Status</button>
                             </div>
                         </div>
                         <div class="col-6">
@@ -52,7 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <img src="${data.image}" alt="">
                                 <div class="water" id="waterLevel"></div>
                                 <span class="level-text" id="levelText">${waterLevel}%</span>
-                                <div id="hoverInfo" class="hover-info">Est. time to empty: ${data.timeToEmpty}</div>
                             </div>
                         </div>
                     </div>
@@ -82,9 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <p><i class="fa fa-barcode"></i> <strong>ID:</strong> ${data.id}</p>
                                     <p><i class="fa fa-clipboard-check"></i> <strong>Status:</strong> <span class="tank-status ${data.statusClass}">${data.status}</span></p>
                                     <p><i class="fa fa-tachometer-alt"></i> <strong>Type:</strong> ${data.type}</p>
-                                    <p><i class="fa fa-battery-quarter"></i> <strong>Battery Level:</strong> ${data.batteryLevel}</p>
                                 </div>
-                                <button class="btn ${data.statusClass ? 'btn-orange' : 'btn-gray'} rounded-pill py-2 mt-2 me-2">Update Status</button>
                             </div>
                         </div>
                         <div class="col-6">
@@ -116,14 +125,13 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="card-body p-0">
                                 <p><i class="fa fa-map-marker-alt"></i> <a href="${data.location}" target="_blank" style="margin-left: 5px; color: #007bff;"><span class="text-edit">Location</span></a></p>
                                 <div class="card-content">
-                                    <p><i class="fa fa-barcode"></i> <strong>ID:</strong> ${data.id}</p>
-                                    <p><i class="fa fa-clipboard-check"></i> <strong>Status:</strong> <span class="tank-status ${data.statusClass}">${data.status}</span></p>
+                                    <p><i class="fa fa-barcode"></i> <strong>ID:</strong> ${data.pipeId}</p>
+                                    <p><i class="fa fa-clipboard-check"></i> <strong>Status:</strong> <span class="tank-status ${data.statusClass}">${data.operationalStatus}</span></p>
                                     <p><i class="fa fa-ruler-horizontal"></i> <strong>Diameter:</strong> ${data.diameter}</p>
-                                    <p><i class="fa fa-ruler"></i> <strong>Length:</strong> ${data.length}</p>
-                                    <p><i class="fa fa-tint"></i> <strong>Flow Rate:</strong> ${data.flowRate}</p>
+                                    <p><i class="fa fa-ruler"></i> <strong>Length:</strong> ${data.pipeLength}</p>
+                                    <p><i class="fa-regular fa-compass"></i> <strong>Direction:</strong> ${data.direction}</p>
                                     <p><i class="fa fa-tachometer-alt"></i> <strong>Pressure Level:</strong> ${data.pressureLevel}</p>
                                 </div>
-                                <button class="btn ${data.statusClass ? 'btn-orange' : 'btn-gray'} rounded-pill py-2 mt-2 me-2">Update Status</button>
                             </div>
                         </div>
                         <div class="col-6">
@@ -159,9 +167,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		 * this is where i will fetch data from the API
 		 * the data will then be used to dynamically populate the html page
 		 */
-        const tanksData = await fetchData('http://localhost:5125/api/Tank/get-all-tanks'); 
-        const sensorsData = await fetchData('http://localhost:5125/api/Sensor/get-devices'); 
-        const pipesData = await fetchData('http://localhost:5125/api/Tank/get-all-pipes'); 
+        const tanksData = await fetchData('https://wisapi-latest.onrender.com/api/Tank/get-all-tanks'); 
+        const sensorsData = await fetchData('https://wisapi-latest.onrender.com/api/Sensor/get-devices'); 
+        const pipesData = await fetchData('https://wisapi-latest.onrender.com/api/Tank/get-all-pipes');
+        //const devices = await fetchData('https://wisapi-latest.onrender.com/api/Sensor/get-all-pipes');
+
+        console.log(pipesData);
+        console.log(sensorsData);
 
         renderCards(tanksData, tankSection, createTankCard, 'tankCard');
         renderCards(sensorsData, sensorSection, createSensorCard, 'sensorCard');

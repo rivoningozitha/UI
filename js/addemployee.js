@@ -1,16 +1,30 @@
+import { getUserRole } from './common.js'; 
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
+    const userRole = await getUserRole();
+
+    // Check if the user is a Manager, if not, deny access and replace the card's content
+    if (userRole == null) {
+        window.location.href = 'login.html';
+        return; // Stop further script execution
+    }else if(userRole !== 'manager'){
+        window.location.href = 'dashboard.html';
+    }
+
+    // Existing functionality for form handling
     const roleSelect = document.getElementById('role');
     const specializationGroup = document.getElementById('specializationGroup');
 
-    roleSelect.addEventListener('change', function () {
-        if (this.value === 'Plumber') {
-            specializationGroup.style.display = 'block';
-        } else {
-            specializationGroup.style.display = 'none';
-            specializationGroup.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
-        }
-    });
+    if (roleSelect && specializationGroup) {
+        roleSelect.addEventListener('change', function () {
+            if (this.value === 'Plumber') {
+                specializationGroup.style.display = 'block';
+            } else {
+                specializationGroup.style.display = 'none';
+                specializationGroup.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+            }
+        });
+    }
 
     const toggleBtn = document.getElementById('modeToggle');
     if (toggleBtn) {
@@ -18,9 +32,9 @@ document.addEventListener('DOMContentLoaded', function () {
             document.body.classList.toggle('dark-mode');
         });
     }
-
+    
     // Call the addEmployee function to initialize event listeners and functionality
-    addEmployee(); //
+    addEmployee();
 });
 
 
@@ -56,20 +70,21 @@ function addEmployee() {
     async function sendEmployee() {
         setLoadingState(true);
 
-        const userId = createId(); // generate ID
         const role = roleSelect.value;
 
         const employeeData = {
             FirstName: firstName.value.trim(),
             LastName: lastName.value.trim(),
             Email: email.value.trim(),
+            Username: email.value.trim(),
             ContactNumber: contactNumber.value.trim(),
             Password: password,
             Verified: verified,
             Role: role,
             Token: token,
             Qualification: qualification.value.trim(),
-            ExperienceYears: parseInt(experience.value.trim(), 10) || 0
+            ExperienceYears: parseInt(experience.value.trim(), 10) || 0,
+            Specialization: ""
         };
 
         // Add specializations if plumber
@@ -80,17 +95,16 @@ function addEmployee() {
                 .map(checkbox => checkbox.value);
 
             // Always include the key, even if nothing is selected
-            employeeData.Specializations = selectedSpecs.length > 0
+            employeeData.Specialization = selectedSpecs.length > 0
                 ? selectedSpecs.join(", ")
                 : "";
 
             console.log(selectedSpecs);
         }
 
-
         console.log("Final employeeData payload:", JSON.stringify(employeeData, null, 2));
         try {
-            const response = await fetch("https://localhost:7238/api/User/addnewemployee", {
+            const response = await fetch("http://localhost:5125/api/User/addnewemployee", {
                 method: "POST",
                 body: JSON.stringify(employeeData),
                 headers: {
